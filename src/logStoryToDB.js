@@ -61,6 +61,11 @@ function anonymizeText(text, childIdMap) {
  * @returns {boolean} - True if logging succeeded, false otherwise
  */
 export const logStoryToDB = async ({ rawInput, storyJSON, flags = {}, engineVersion = "1.0" }) => {
+  if (!supabase) {
+    console.warn("Supabase client is not configured; skipping logging.");
+    return false;
+  }
+
   try {
     // ------------------------------------------------------------------------
     // STEP 1: BUILD CHILD NAME MAPPING
